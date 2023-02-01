@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJTree", "EJTree\EJTree.csproj", "{E2005021-9E35-40D6-9F97-3836B7C13943}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{4FFE393F-94BF-42C7-9C96-A941660F5733}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{48E4938C-F87F-4568-889E-7847F2ECAC91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E2005021-9E35-40D6-9F97-3836B7C13943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2005021-9E35-40D6-9F97-3836B7C13943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2005021-9E35-40D6-9F97-3836B7C13943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFE393F-94BF-42C7-9C96-A941660F5733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFE393F-94BF-42C7-9C96-A941660F5733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFE393F-94BF-42C7-9C96-A941660F5733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFE393F-94BF-42C7-9C96-A941660F5733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E4938C-F87F-4568-889E-7847F2ECAC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E4938C-F87F-4568-889E-7847F2ECAC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E4938C-F87F-4568-889E-7847F2ECAC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E4938C-F87F-4568-889E-7847F2ECAC91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

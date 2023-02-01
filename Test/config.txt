@@ -1,8 +1,8 @@
 ﻿# min number of keys in a non root node
 order: 3
 # persistencemode 0 - in memory 1 - on disk
-persistence mode: 0
+persistence mode: Memory
 # log file name
-log file path: log.txt
+log file path: .\log.txt
 # log level
-log level: info
+log level: Info

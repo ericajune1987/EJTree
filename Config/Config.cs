@@ -104,8 +104,22 @@ namespace Config
 
                 foreach (String key in m_configVals.Keys)
                 {
-                    String val = m_configVals[key];
-                    Console.WriteLine(key + " : " + val);
+                    if (key == m_orderKey)
+                    {
+                        Console.WriteLine(m_orderKey + " : " + GetOrder());
+                    }
+                    else if (key == m_persistenceModeKey)
+                    {
+                        Console.WriteLine(m_persistenceModeKey + " : " + GetPersistenceMode());
+                    }
+                    else if (key == m_logFilePathKey)
+                    {
+                        Console.WriteLine(m_logFilePathKey + " : " + GetLogFilePath());
+                    }
+                    else if (key == m_logLevelKey)
+                    {
+                        Console.WriteLine(m_logLevelKey + " : " + GetLogLevel());
+                    }
                 }
             }
 

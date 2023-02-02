@@ -61,6 +61,28 @@ namespace Logger
                     Console.WriteLine(msg);
                 }
             }
-        }        
+        }
+
+        public void Log(LogLevel logLevel, String message)
+        {
+            if ((m_logLevel == LogLevel.Off) || (logLevel == LogLevel.Off))
+            {
+                return;
+            }
+
+            if (m_logLevel <= logLevel)
+            {
+                String level = Enum.GetName(typeof(LogLevel), logLevel)!.ToUpper();
+                String msg = $"\n{level} {DateTime.UtcNow} {message}";
+
+                if (m_logFilePath != null)
+                {
+                    File.WriteAllText(m_logFilePath + "\\" + m_logFileName, msg);
+                } else
+                {
+                    Console.WriteLine(msg);
+                }
+            }
+        }
     }
 }

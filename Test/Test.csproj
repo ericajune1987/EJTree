@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj" />
+    <ProjectReference Include="..\EJTree\EJTree.csproj" />
     <ProjectReference Include="..\Logger\Logger.csproj" />
   </ItemGroup>
 

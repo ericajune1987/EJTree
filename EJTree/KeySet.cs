@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJTree
 {
-    public class KeySet<T> : IEnumerable<T> where T : IComparable<T>
+    public class KeySet<T> : IKeySet<T> where T : IComparable
     {
         public KeySet() 
         {
@@ -26,7 +26,12 @@ namespace EJTree
             return m_last!.GetKey();
         }
 
-        public Boolean IsEmpty()
+        public int Size()
+        {
+            return m_size;
+        }
+
+        public Boolean Empty()
         {
             return (m_first == null);
         }
@@ -34,7 +39,7 @@ namespace EJTree
         public Boolean ContainsKey(T key)
         {
             KeyNode? n = m_first;
-            while((n != null) && (key.CompareTo(n.GetKey()) < 0))
+            while((n != null) && (key.CompareTo(n.GetKey()) > 0))
             {
                 n = n.GetNext();
             }
@@ -53,35 +58,39 @@ namespace EJTree
             {
                 m_first = new KeyNode(key, data);
                 m_last = m_first;
-                return true;
             }
+            else
+            {
 
-            KeyNode? n = m_first;
-            while ((n != null) && (key.CompareTo(n.GetKey()) < 0))
-            {
-                n = n.GetNext();
-            }
-            KeyNode add = new KeyNode(key, data);
+                KeyNode? n = m_first;
+                while ((n != null) && (key.CompareTo(n.GetKey()) > 0))
+                {
+                    n = n.GetNext();
+                }
+                KeyNode add = new KeyNode(key, data);
 
-            if (n == null)
-            {
-                m_last!.SetNext(add);
-                add.SetPrev(m_last);
-                m_last = add;
-            } else
-            {
-                KeyNode? prev = n.GetPrev();
-                if (prev == null)
+                if (n == null)
                 {
-                    add.SetNext(n);
-                    n.SetPrev(add);
-                    m_first = add;
-                } else
+                    m_last!.SetNext(add);
+                    add.SetPrev(m_last);
+                    m_last = add;
+                }
+                else
                 {
-                    prev.SetNext(add);
-                    add.SetPrev(prev);
-                    add.SetNext(n);
-                    n.SetPrev(add);
+                    KeyNode? prev = n.GetPrev();
+                    if (prev == null)
+                    {
+                        add.SetNext(n);
+                        n.SetPrev(add);
+                        m_first = add;
+                    }
+                    else
+                    {
+                        prev.SetNext(add);
+                        add.SetPrev(prev);
+                        add.SetNext(n);
+                        n.SetPrev(add);
+                    }
                 }
             }
 
@@ -95,6 +104,7 @@ namespace EJTree
             while(n != null)
             {
                 yield return n.GetKey();
+                n = n.GetNext();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -98,6 +99,64 @@ namespace EJTree
             return true;
         }
 
+        public Boolean RemoveKey(T key)
+        {
+            KeyNode? at = m_first;
+            while((at != null) && (key.CompareTo(at.GetKey()) > 0))
+            {
+                at = at.GetNext();
+            }
+
+            if ((at == null) || (key.CompareTo(at.GetKey()) != 0))
+            {
+                return false;
+            }
+
+            if(m_size == 1)
+            {
+                m_first = null;
+                m_last = null;
+            } else if (at == m_first)
+            {
+                m_first = m_first.GetNext();
+                if (m_first == m_last)
+                {
+                    m_last!.SetPrev(null);
+                    at.SetNext(null);
+                } else
+                {
+                    at.SetNext(null);
+                    m_first!.SetPrev(null);
+                }
+            } else if (at == m_last)
+            {
+                m_last = m_last.GetPrev();
+                if (m_first == m_last)
+                {
+                    m_first!.SetNext(null);
+                    at.SetPrev(null);
+                } else
+                {
+                    m_last!.SetNext(null);
+                    at.SetPrev(null);
+                }
+            } else
+            {
+                KeyNode? p = at!.GetPrev();
+                KeyNode? n = at!.GetNext();
+
+                p!.SetNext(n);
+                n!.SetPrev(p);
+
+                at.SetNext(null);
+                at.SetPrev(null);
+            }
+
+
+            m_size--;
+            return true;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             KeyNode? n = m_first;
@@ -108,7 +167,7 @@ namespace EJTree
             }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
         }

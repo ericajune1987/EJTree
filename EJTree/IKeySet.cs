@@ -14,5 +14,6 @@ namespace EJTree
         public Boolean Empty();
         public Boolean ContainsKey(T key);
         public Boolean AddKey(T key, Object? data = null);
+        public Boolean RemoveKey(T key);
     }
 }

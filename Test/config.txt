@@ -2,7 +2,9 @@
 order: 3
 # persistencemode 0 - in memory 1 - on disk
 persistence mode: Memory
+# log file path
+log file path: C:\Projects\EJTree\Test\bin\Debug\net6.0
 # log file name
-log file path: .\log.txt
+log file name: log.txt
 # log level
 log level: Info

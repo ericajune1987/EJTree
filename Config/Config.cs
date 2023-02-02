@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Common;
 
 namespace Config
@@ -14,12 +15,14 @@ namespace Config
         private const String m_orderKey = "ORDER";
         private const String m_persistenceModeKey = "PERSISTENCE MODE";
         private const String m_logFilePathKey = "LOG FILE PATH";
+        private const String m_logFileNameKey = "LOG FILE NAME";
         private const String m_logLevelKey = "LOG LEVEL";
 
         // default configuration values
         private const int m_defaultOrder = 2;
         private const PersistenceMode m_defaultPersistenceMode = PersistenceMode.Memory;
-        private String m_defaultLogFilePath = Environment.CurrentDirectory + "\\log.txt";
+        private String m_defaultLogFilePath = Environment.CurrentDirectory;
+        private String m_defaultLogFileName = "log.txt";
         private const LogLevel m_defaultLogLevel = LogLevel.Info;
 
         public Config() : this(Environment.CurrentDirectory + "\\config.txt") { }
@@ -42,14 +45,17 @@ namespace Config
                     continue;
                 }
 
-                String[] parts = line.Split(':');
+                int splitAt = line.IndexOf(':');
 
-                if (parts.Length != 2)
+                if (splitAt == -1)
                 {
                     throw new ConfigurationException("Invalid configuration line: " + line);
                 }
 
-                m_configVals.Add(parts[0].Trim().ToUpper(), parts[1].Trim());
+                String k = line.Substring(0, splitAt);
+                String v = line.Substring(splitAt + 1, line.Length - splitAt - 1);
+
+                m_configVals.Add(k.Trim().ToUpper(), v.Trim());
             }
 
             m_initialized = true;
@@ -82,6 +88,16 @@ namespace Config
             }
 
             return m_defaultLogFilePath;
+        }
+
+        public String GetLogFileName()
+        {
+            if ((m_configVals != null) && m_configVals.ContainsKey(m_logFileNameKey))
+            {
+                return m_configVals[m_logFileNameKey];
+            }
+
+            return m_defaultLogFileName;
         }
 
         public LogLevel GetLogLevel()
@@ -117,6 +133,10 @@ namespace Config
                     {
                         Console.WriteLine(m_logFilePathKey + " : " + GetLogFilePath());
                     }
+                    else if (key == m_logFileNameKey)
+                    {
+                        Console.WriteLine(m_logFileNameKey + " : " + GetLogFileName());
+                    }
                     else if (key == m_logLevelKey)
                     {
                         Console.WriteLine(m_logLevelKey + " : " + GetLogLevel());
@@ -137,6 +157,10 @@ namespace Config
             if ((m_configVals == null) || !m_configVals.ContainsKey(m_logFilePathKey))
             {
                 Console.WriteLine(m_logFilePathKey + " : " + GetLogFilePath());
+            }
+            if ((m_configVals == null) || !m_configVals.ContainsKey(m_logFileNameKey))
+            {
+                Console.WriteLine(m_logFileNameKey + " : " + GetLogFileName());
             }
             if ((m_configVals == null) || !m_configVals.ContainsKey(m_logLevelKey))
             {

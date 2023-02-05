@@ -16,7 +16,25 @@ namespace EJTree
 
         public ITreeNode<T>? FindKeySpace(T key)
         {
+            if (WithinKeySpace(key))
+            {
+                foreach(ITreeNode<T> node in m_nodes)
+                {
+                    if (node.WithinKeySpace(key))
+                    {
+                        return node.FindKeySpace(key);
+                    }
+                }
+
+                return this;
+            }
+
             return null;
+        }
+
+        public Boolean WithinKeySpace(T key)
+        {
+            return (key.CompareTo(FirstKey()) >= 0) && (key.CompareTo(LastKey()) <= 0);
         }
 
         public T FirstKey()

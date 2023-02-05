@@ -9,6 +9,7 @@ namespace EJTree
     public interface ITreeNode<T> where T : IComparable
     {
         public ITreeNode<T>? FindKeySpace(T key);
+        public Boolean WithinKeySpace(T key);
         public T FirstKey();
         public T LastKey();
         public int Size();
